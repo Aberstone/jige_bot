@@ -21,9 +21,8 @@ ADD ./. /etc/bot_src
 WORKDIR /etc/bot_src
 
 RUN pip3 install -i https://mirrors.aliyun.com/pypi/simple/ -r /etc/bot_src/requirements.txt
-#
-## 添加环境变量
-ENV DEPLOYMENT_ENV prod
+RUN pip3 install -i https://mirrors.aliyun.com/pypi/simple/ hypercorn
+
 #
 #RUN python3 main.py
-CMD ["python3","main.py"]
+CMD ["hypercorn","main:app","-b","0.0.0.0:32080"]

@@ -41,7 +41,7 @@ spec:
             - name: CQHTTP_USE_WS_REVERSE
               value: 'true'
             - name: CQHTTP_WS_REVERSE_URL
-              value: 'ws://dev-server:32080/ws/'
+              value: 'ws://jige-ws:32080/ws/'
             - name: CQHTTP_ENABLE_HEARTBEAT
               value: 'true'
             - name: CQHTTP_POST_MESSAGE_FORMAT

@@ -23,3 +23,15 @@ spec:
       nodePort: 32067
   selector:
     app: cqhttp
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jige-ws
+  namespace: bot
+spec:
+  ports:
+    - port: 32080
+      targetPort: 32080
+  selector:
+    app: jige-bot

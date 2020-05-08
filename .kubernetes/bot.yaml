@@ -18,7 +18,8 @@ spec:
     spec:
       containers:
         - name: jige-bot
-          image: 'jige_dev'
+          image: 'jige_bot:latest'
+          imagePullPolicy: Never
           ports:
             - containerPort: 32080
               protocol: TCP
