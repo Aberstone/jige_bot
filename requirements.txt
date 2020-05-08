@@ -5,7 +5,7 @@
 # C:\Users\aberstone\PycharmProjects\jige\bot\plugins\praise_chicken_brother\__init__.py: 1
 # C:\Users\aberstone\PycharmProjects\jige\bot\plugins\praise_chicken_brother\chicken_chp.py: 3
 # C:\Users\aberstone\PycharmProjects\jige\bot\plugins\praise_chicken_brother\chicken_pic.py: 9
-# C:\Users\aberstone\PycharmProjects\jige\config_base.py: 1
+# C:\Users\aberstone\PycharmProjects\jige\config.py: 1
 # C:\Users\aberstone\PycharmProjects\jige\config_dev.py: 1
 nonebot == 1.6.0
 

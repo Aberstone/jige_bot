@@ -18,15 +18,10 @@ elif deployment_env in ('test', 'testing'):
         pass
 elif deployment_env in ('prod', 'production'):
     try:
-        import config_prod as config
-    except ImportError:
-        pass
-
-if config is None:
-    try:
         import config
     except ImportError:
         pass
+
 
 if config is None:
     try:

@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jige-bot
+  namespace: bot
+  labels:
+    app: jige-bot
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jige-bot
+  template:
+    metadata:
+      name: jige-bot
+      labels:
+        app: jige-bot
+    spec:
+      containers:
+        - name: jige-bot
+          image: 'jige_dev'
+          ports:
+            - containerPort: 32080
+              protocol: TCP
+          env:
+            - name: DEPLOYMENT_ENV
+              value: prod
