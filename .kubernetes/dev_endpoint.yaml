@@ -1,0 +1,23 @@
+kind: Endpoints
+apiVersion: v1
+metadata:
+  name: dev-server
+  labels:
+    ep: dev-server
+  namespace: bot
+subsets:
+  - addresses:
+      - ip: 192.168.1.152
+    ports:
+      - port: 32080
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: dev-server
+  labels:
+    svc: dev-server
+  namespace: bot
+spec:
+  ports:
+    - port: 32080

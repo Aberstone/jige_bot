@@ -1,0 +1,67 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: cqhttp
+  namespace: bot
+  labels:
+    app: cqhttp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cqhttp
+  template:
+    metadata:
+      name: cqhttp
+      labels:
+        app: cqhttp
+    spec:
+      volumes:
+        - name: cqhttp-persistent-storage
+          persistentVolumeClaim:
+            claimName: cqhttp
+      containers:
+        - name: cqhttp
+          image: 'richardchien/cqhttp:latest'
+          ports:
+            - name: vnc
+              containerPort: 9000
+              protocol: TCP
+          env:
+            - name: VNC_PASSWD
+              value: '123456'
+            - name: COOLQ_ACCOUNT
+              value: '123456789'
+            - name: COOLQ_URL
+              value: 'http://dlsec.cqp.me/cqa-tuling'
+            - name: CQHTTP_USE_HTTP
+              value: 'false'
+            - name: CQHTTP_USE_WS
+              value: 'false'
+            - name: CQHTTP_USE_WS_REVERSE
+              value: 'true'
+            - name: CQHTTP_WS_REVERSE_URL
+              value: 'ws://dev-server:32080/ws/'
+            - name: CQHTTP_ENABLE_HEARTBEAT
+              value: 'true'
+            - name: CQHTTP_POST_MESSAGE_FORMAT
+              value: string
+            - name: CQHTTP_SERVE_DATA_FILES
+              value: 'false'
+            - name: CQHTTP_UPDATE_SOURCE
+              value: github
+            - name: CQHTTP_UPDATE_CHANNEL
+              value: stable
+            - name: CQHTTP_CHECK_UPDATE
+              value: 'false'
+            - name: CQHTTP_PERFORM_UPDATE
+              value: 'false'
+            - name: CQHTTP_SHOW_LOG_CONSOLE
+              value: 'true'
+            - name: CQHTTP_LOG_LEVEL
+              value: info
+            - name: FORCE_ENV
+              value: 'true'
+          volumeMounts:
+            - name: cqhttp-persistent-storage
+              mountPath: /home/user/coolq
