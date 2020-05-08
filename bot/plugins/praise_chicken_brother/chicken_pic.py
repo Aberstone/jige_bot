@@ -19,7 +19,7 @@ HEADERS = {
 }
 
 
-@cg.command("find", aliases=("找鸡图", "看鸡图"), only_to_me=False)
+@cg.command("find", aliases=("找鸡图", "看鸡图", "鸡哥英姿"), only_to_me=False)
 async def find(session: CommandSession):
     img = await crawler()
     if img.startswith("http"):

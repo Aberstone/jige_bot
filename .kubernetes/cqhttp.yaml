@@ -33,7 +33,7 @@ spec:
             - name: COOLQ_ACCOUNT
               value: '123456789'
             - name: COOLQ_URL
-              value: 'http://dlsec.cqp.me/cqa-tuling'
+              value: 'http://dlsec.cqp.me/cqp-tuling'
             - name: CQHTTP_USE_HTTP
               value: 'false'
             - name: CQHTTP_USE_WS
