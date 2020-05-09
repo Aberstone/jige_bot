@@ -1,0 +1,28 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ ci ]
+  pull_request:
+    branches: [ ci ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build the Docker image
+#       run: docker build . --file Dockerfile --tag ${{ secrets.DOCKERHUB_USERNAME }}/jige_bot:$(date +%s)
+      uses: elgohr/Publish-Docker-Github-Action@2.14
+      with:
+        # The name of the image you would like to push
+        name: ${{ secrets.DOCKERHUB_USERNAME }}/jige_bot:$(date +%s)
+        # The login username for the registry
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        # The login password for the registry
+        password: ${{ secrets.DOCKERHUB_PASSWD }}/jige_bot
+        # Use workdir when you would like to change the directory for building
+        workdir: .
