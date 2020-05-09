@@ -14,19 +14,6 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: cqhttp-ws
-  namespace: bot
-spec:
-  type: NodePort
-  ports:
-    - port: 6700
-      nodePort: 32067
-  selector:
-    app: cqhttp
----
-apiVersion: v1
-kind: Service
-metadata:
   name: jige-ws
   namespace: bot
 spec:
