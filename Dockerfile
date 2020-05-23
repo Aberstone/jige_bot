@@ -20,8 +20,8 @@ ADD ./. /etc/bot_src
 
 WORKDIR /etc/bot_src
 
-RUN pip3 install -i https://mirrors.aliyun.com/pypi/simple/ -r /etc/bot_src/requirements.txt
-RUN pip3 install -i https://mirrors.aliyun.com/pypi/simple/ hypercorn
+RUN pip3 install -i https://pypi.douban.com/simple/ -r /etc/bot_src/requirements.txt
+RUN pip3 install -i https://pypi.douban.com/simple/ hypercorn
 
 #
 #RUN python3 main.py
