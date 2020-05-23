@@ -12,9 +12,3 @@ spec:
     requests:
       storage: 5Gi
   storageClassName: hostpath
-status:
-  phase: Bound
-  accessModes:
-    - ReadWriteOnce
-  capacity:
-    storage: 5Gi

@@ -1,0 +1,142 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: bot
+  labels:
+    ns: bot
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cqhttp-vnc
+  namespace: bot
+spec:
+  type: NodePort
+  ports:
+    - port: 9000
+      nodePort: 32090
+  selector:
+    app: cqhttp
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jige-ws
+  namespace: bot
+spec:
+  ports:
+    - port: 32080
+      targetPort: 32080
+  selector:
+    app: jige-bot
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: cqhttp
+  namespace: bot
+  labels:
+    pvc: cqhttp
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+  storageClassName: hostpath
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: cqhttp
+  namespace: bot
+  labels:
+    app: cqhttp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cqhttp
+  template:
+    metadata:
+      name: cqhttp
+      labels:
+        app: cqhttp
+    spec:
+      volumes:
+        - name: cqhttp-persistent-storage
+          persistentVolumeClaim:
+            claimName: cqhttp
+      containers:
+        - name: cqhttp
+          image: 'richardchien/cqhttp:latest'
+          ports:
+            - name: vnc
+              containerPort: 9000
+              protocol: TCP
+          env:
+            - name: VNC_PASSWD
+              value: '123456'
+            - name: COOLQ_ACCOUNT
+              value: '123456789'
+            - name: COOLQ_URL
+              value: 'http://dlsec.cqp.me/cqp-tuling'
+            - name: CQHTTP_USE_HTTP
+              value: 'false'
+            - name: CQHTTP_USE_WS
+              value: 'false'
+            - name: CQHTTP_USE_WS_REVERSE
+              value: 'true'
+            - name: CQHTTP_WS_REVERSE_URL
+              value: 'ws://jige-ws:32080/ws/'
+            - name: CQHTTP_ENABLE_HEARTBEAT
+              value: 'true'
+            - name: CQHTTP_POST_MESSAGE_FORMAT
+              value: string
+            - name: CQHTTP_SERVE_DATA_FILES
+              value: 'false'
+            - name: CQHTTP_UPDATE_SOURCE
+              value: github
+            - name: CQHTTP_UPDATE_CHANNEL
+              value: stable
+            - name: CQHTTP_CHECK_UPDATE
+              value: 'false'
+            - name: CQHTTP_PERFORM_UPDATE
+              value: 'false'
+            - name: CQHTTP_SHOW_LOG_CONSOLE
+              value: 'true'
+            - name: CQHTTP_LOG_LEVEL
+              value: info
+            - name: FORCE_ENV
+              value: 'true'
+          volumeMounts:
+            - name: cqhttp-persistent-storage
+              mountPath: /home/user/coolq
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jige-bot
+  namespace: bot
+  labels:
+    app: jige-bot
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jige-bot
+  template:
+    metadata:
+      name: jige-bot
+      labels:
+        app: jige-bot
+    spec:
+      containers:
+        - name: jige-bot
+          image: 'jige_bot:ci'
+          ports:
+            - containerPort: 32080
+              protocol: TCP
+          env:
+            - name: DEPLOYMENT_ENV
+              value: prod
