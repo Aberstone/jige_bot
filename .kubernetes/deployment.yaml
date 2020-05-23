@@ -140,3 +140,11 @@ spec:
           env:
             - name: DEPLOYMENT_ENV
               value: prod
+            - name: SUPERUSERS
+              value: '{}'
+            - name: COMMADN_START
+              value: "{'', '/', '!', '／', '！'}"
+            - name: SESSION_RUN_TIMEOUT
+              value: '20'
+            - name: REQUEST_FRIEND_COMMENT_PASSWD
+              value: jigewudi
