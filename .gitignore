@@ -2,3 +2,4 @@ __pycache__
 .idea/*
 config_dev.py
 *_dev.*
+/config_.py
