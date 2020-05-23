@@ -25,4 +25,5 @@ RUN pip3 install -i https://mirrors.aliyun.com/pypi/simple/ hypercorn
 
 #
 #RUN python3 main.py
+CMD ["python3","gen_config.py"]
 CMD ["hypercorn","main:app","-b","0.0.0.0:32080"]
